@@ -7,27 +7,32 @@ import axios from "axios";
 import Markdown from "react-markdown";
 import retypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github.css";
-// import "prismjs/components/prism-jsx";
 
 function App() {
-  const [code, setCode] = useState(`(a,b)=>return {a+b}`);
+  const [code, setCode] = useState(`(a,b) => a + b`);
   const [review, setReview] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     Prism.highlightAll();
   }, []);
 
   const reviewCode = async function () {
-    axios
-      .post(
-        "http://https://ai-powered-code-reviewer-ylgl.vercel.app/ai/get-response",
+    try {
+      setIsLoading(true);
+      const response = await axios.post(
+        "https://ai-powered-code-reviewer-ylgl.vercel.app/ai/get-response",
         { prompt: code }
-      )
-      .then((res) => {
-        console.log(res.data);
-        setReview(res.data);
-      });
-    // console.log(response.data);
+      );
+      setReview(response.data);
+    } catch (error) {
+      console.error("Error reviewing code:", error);
+      setReview("An error occurred while reviewing the code. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
+
   return (
     <>
       <main className="w-full h-screen flex gap-1 bg-zinc-900 px-2 py-3">
@@ -36,7 +41,7 @@ function App() {
             <Editor
               className="w-full h-full"
               value={code}
-              onValueChange={(code) => setCode(code)}
+              onValueChange={setCode}
               highlight={(code) =>
                 Prism.highlight(code, Prism.languages.javascript, "javascript")
               }
@@ -48,18 +53,20 @@ function App() {
                 color: "white",
                 border: "1px solid #ccc",
                 borderRadius: "4px",
-                // overflow: "auto",
                 maxHeight: "100%",
                 minHeight: "100%",
                 minWidth: "100%",
               }}
             />
-
-            <Button reviewCode={reviewCode} btntxt="Review My Code" />
+            <Button 
+              reviewCode={reviewCode} 
+              btntxt={isLoading ? "Reviewing..." : "Review My Code"}
+              disabled={isLoading}
+            />
           </div>
         </div>
         <div className="right w-1/2 h-full text-sm bg-black/5 text-white px-3 py-1 overflow-y-auto">
-          <div className="w-full break-words whitespace-pre-wrap ">
+          <div className="w-full break-words whitespace-pre-wrap">
             <Markdown
               rehypePlugins={[retypeHighlight]}
               className="prose prose-invert"

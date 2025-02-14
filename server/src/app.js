@@ -6,17 +6,11 @@ import cors from "cors";
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors(
-    {
-        origin: "https://ai-powered-code-reviewer-silk.vercel.app/",
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        allowedHeaders: ["Content-Type", "Authorization"],
-    }
-));
+app.use(cors());
 
 // const aiRoutes = require('./routes/ai.routes');
 app.get("/", (req, res) => {
-    res.send("Hello World!");
+  res.send("Hello World!");
 });
 app.use("/ai", aiRoute);
 
