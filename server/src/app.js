@@ -15,7 +15,9 @@ app.use(cors(
 ));
 
 // const aiRoutes = require('./routes/ai.routes');
-
+app.get("/", (req, res) => {
+    res.send("Hello World!");
+});
 app.use("/ai", aiRoute);
 
 export default app;
