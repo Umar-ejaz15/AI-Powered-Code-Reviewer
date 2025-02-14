@@ -22,12 +22,14 @@ function App() {
       setIsLoading(true);
       const response = await axios.post(
         "https://ai-powered-code-reviewer-ylgl.vercel.app/ai/get-response",
-        { prompt: code }
+        { prompt: code, withCredentials: true }
       );
       setReview(response.data);
     } catch (error) {
       console.error("Error reviewing code:", error);
-      setReview("An error occurred while reviewing the code. Please try again.");
+      setReview(
+        "An error occurred while reviewing the code. Please try again."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -58,8 +60,8 @@ function App() {
                 minWidth: "100%",
               }}
             />
-            <Button 
-              reviewCode={reviewCode} 
+            <Button
+              reviewCode={reviewCode}
               btntxt={isLoading ? "Reviewing..." : "Review My Code"}
               disabled={isLoading}
             />
