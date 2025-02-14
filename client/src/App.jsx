@@ -5,6 +5,8 @@ import "prismjs/themes/prism-tomorrow.css";
 import Editor from "react-simple-code-editor";
 import axios from "axios";
 import Markdown from "react-markdown";
+import retypeHighlight from "rehype-highlight";
+import "highlight.js/styles/github.css";
 // import "prismjs/components/prism-jsx";
 
 function App() {
@@ -53,9 +55,14 @@ function App() {
             <Button reviewCode={reviewCode} btntxt="Review My Code" />
           </div>
         </div>
-        <div className="right w-1/2 h-full text-sm bg-zinc-800 text-white px-3 py-1 overflow-y-auto">
-          <div className="w-full break-words whitespace-normal">
-            <Markdown className="prose prose-invert">{review}</Markdown>
+        <div className="right w-1/2 h-full text-sm bg-black/5 text-white px-3 py-1 overflow-y-auto">
+          <div className="w-full break-words whitespace-pre-wrap ">
+            <Markdown
+              rehypePlugins={[retypeHighlight]}
+              className="prose prose-invert"
+            >
+              {review}
+            </Markdown>
           </div>
         </div>
       </main>
