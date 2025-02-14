@@ -18,7 +18,10 @@ function App() {
 
   const reviewCode = async function () {
     axios
-      .post("http://localhost:3000/ai/get-response", { prompt: code })
+      .post(
+        "http://https://ai-powered-code-reviewer-ylgl.vercel.app/ai/get-response",
+        { prompt: code }
+      )
       .then((res) => {
         console.log(res.data);
         setReview(res.data);
