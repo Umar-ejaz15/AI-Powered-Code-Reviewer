@@ -45,7 +45,7 @@ function App() {
     <>
       <main className="w-full min-h-screen flex flex-col md:flex-row gap-4 bg-zinc-900 p-4">
         <div className="w-full md:w-1/2 h-[50vh] md:h-screen bg-zinc-900 p-2">
-          <div className="flex flex-col w-full h-full gap-4 justify-center items-center">
+          <div className="flex relative flex-col w-full h-full gap-4 justify-center items-center">
             <Editor
               className="w-full h-full"
               value={code}
