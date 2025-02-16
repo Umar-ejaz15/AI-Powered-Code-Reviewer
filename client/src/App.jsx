@@ -22,10 +22,12 @@ function App() {
     try {
       const res = await axios.post(
         "https://ai-powered-code-reviewer-rtpv.vercel.app/ai/get-response",
-
         { prompt: code },
-        { timeout: 30000 }
+        {
+          timeout: 60000, // ⏳ 60 seconds timeout
+        }
       );
+      
       console.log(res.data);
       setReview(res.data);
     } catch (error) {

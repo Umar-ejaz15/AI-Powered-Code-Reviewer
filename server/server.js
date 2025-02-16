@@ -3,10 +3,6 @@ import app from "./src/app.js";
 import dotenv from "dotenv";
 dotenv.config();
 
-app.use((req, res, next) => {
-  req.setTimeout(30000); // ⏳ 30 seconds server timeout
-  next();
-});
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

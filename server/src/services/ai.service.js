@@ -13,14 +13,17 @@ const model = genAI.getGenerativeModel({
 async function generateText(prompt) {
   try {
     const result = await model.generateContent(prompt);
+    
     if (!result || !result.response) {
       throw new Error("Invalid response from Gemini API");
     }
+    
     return result.response.text();
   } catch (error) {
-    console.error("Error in Gemini API:", error.message);
-    return "An error occurred while generating the response.";
+    console.error("🔴 Gemini API Error:", error.message);
+    return "❌ Error: Failed to generate AI response.";
   }
 }
+
 
 export default generateText;
