@@ -20,7 +20,10 @@ function App() {
   const reviewCode = async function () {
     setIsLoading(true);
     try {
-      const res = await axios.post("http://localhost:3000/ai/get-response", { prompt: code });
+      const res = await axios.post(
+        "https://ai-powered-code-reviewer-rtpv.vercel.app/ai/get-response",
+        { prompt: code }
+      );
       console.log(res.data);
       setReview(res.data);
     } catch (error) {
@@ -54,7 +57,6 @@ function App() {
                 maxHeight: "100%",
                 minHeight: "100%",
                 minWidth: "100%",
-                
               }}
             />
 
