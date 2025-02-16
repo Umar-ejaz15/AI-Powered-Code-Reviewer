@@ -61,7 +61,7 @@ function App() {
 
             <Button
               reviewCode={reviewCode}
-              btntxt={isLoading ? "Loading..." : "Review My Code"}
+              btntxt={isLoading ? "Loading..." : "Start"}
             />
           </div>
         </div>
