@@ -1,8 +1,11 @@
 import express from "express";
 import cors from "cors"; // ✅ Import CORS
+import aiRoutes from "./routes/ai.routes.js";
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 
 // ✅ Configure CORS
 app.use(
@@ -13,6 +16,7 @@ app.use(
     // credentials: true, // ✅ Allow credentials (cookies, auth headers, etc.)
   })
 );
+app.use("/ai", aiRoutes);
 
 // ✅ Manually set CORS headers (for safety)
 

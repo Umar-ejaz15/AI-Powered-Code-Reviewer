@@ -21,7 +21,7 @@ function App() {
     setIsLoading(true);
     try {
       const res = await axios.post(
-        "https://devin-dusky.vercel.app/get-response",
+        "https://devin-dusky.vercel.app/ai/get-response",
         { prompt: code }
       );
 
