@@ -7,6 +7,9 @@ import axios from "axios";
 import Markdown from "react-markdown";
 import retypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github.css";
+import { Analytics } from "@vercel/analytics/react";
+import { Helmet } from "react-helmet";
+
 // import "prismjs/components/prism-jsx";
 
 function App() {
@@ -43,6 +46,16 @@ function App() {
   };
   return (
     <>
+      <Helmet>
+        <title>AI Code  Assistant | Smart Code Analysis Tool</title>
+        <meta name="description" content="Powerful AI-powered code review assistant that helps developers analyze, optimize, and improve their code quality. Get instant feedback and suggestions for your code." />
+        <meta name="keywords" content="AI code review, code analysis tool, code optimization, programming assistant, code quality checker, automated code review, developer tools, code improvement, code suggestions, AI programming" />
+        <meta property="og:title" content="AI Code Review Assistant | Smart Code Analysis Tool" />
+        <meta property="og:description" content="Powerful AI-powered code review assistant that helps developers analyze, optimize, and improve their code quality. Get instant feedback and suggestions for your code." />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://devin-dusky.vercel.app" />
+      </Helmet>
+      <Analytics />
       <main className="w-full min-h-screen flex flex-col md:flex-row gap-4 bg-zinc-900 p-4">
         <div className="w-full md:w-1/2 h-[50vh] md:h-screen bg-zinc-900 p-2">
           <div className="flex relative flex-col w-full h-full gap-4 justify-center items-center">
