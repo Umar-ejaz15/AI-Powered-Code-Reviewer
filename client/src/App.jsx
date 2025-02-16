@@ -22,9 +22,9 @@ function App() {
     try {
       const res = await axios.post(
         "https://ai-powered-code-reviewer-rtpv.vercel.app/ai/get-response",
-        
-        
-        { prompt: code }
+
+        { prompt: code },
+        { timeout: 30000 }
       );
       console.log(res.data);
       setReview(res.data);

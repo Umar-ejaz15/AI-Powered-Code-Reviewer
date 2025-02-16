@@ -1,28 +1,27 @@
 import express from "express";
-import aiRoute from "./routes/ai.routes.js";
-import cors from "cors";
-
+import cors from "cors"; // ✅ Import CORS middleware
 
 const app = express();
-
-app.use(
-    cors({
-      origin: "https://ai-powered-code-reviewer-silk.vercel.app", // Change this to match your frontend URL
-      methods: ["GET", "POST", "OPTIONS"], // ✅ Allow OPTIONS
-      allowedHeaders: ["Content-Type", "Authorization"], // ✅ Allow necessary headers
-    })
-  );
-  app.options("*", (req, res) => {
-    res.header("Access-Control-Allow-Origin", "https://ai-powered-code-reviewer-silk.vercel.app");
-    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    res.sendStatus(204); // ✅ No content response
-  });
-  
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-// const aiRoutes = require('./routes/ai.routes');
 
-app.use("/ai", aiRoute);
+// ✅ Enable CORS for all domains or specify allowed origins
+app.use(
+  cors({
+    origin: "*", // Allow all origins
+    methods: ["POST", "GET"], // Allow only specific methods
+    allowedHeaders: ["Content-Type"], // Allow required headers
+  })
+);
+
+// ✅ Set headers manually (optional)
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
+
+// ✅ Handle preflight requests
+app.options("*", (req, res) => res.sendStatus(200));
 
 export default app;
