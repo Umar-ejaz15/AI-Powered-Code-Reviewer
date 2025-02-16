@@ -34,9 +34,9 @@ function App() {
   };
   return (
     <>
-      <main className="w-full h-screen flex gap-1 bg-zinc-900 px-2 py-3">
-        <div className="left relative w-1/2 h-full bg-zinc-900 px-1 py-1">
-          <div className="flex flex-col w-full h-full gap-1 justify-center items-center">
+      <main className="w-full min-h-screen flex flex-col md:flex-row gap-4 bg-zinc-900 p-4">
+        <div className="w-full md:w-1/2 h-[50vh] md:h-screen bg-zinc-900 p-2">
+          <div className="flex flex-col w-full h-full gap-4 justify-center items-center">
             <Editor
               className="w-full h-full"
               value={code}
@@ -53,7 +53,6 @@ function App() {
                 color: "white",
                 border: "1px solid #ccc",
                 borderRadius: "4px",
-                // overflow: "auto",
                 maxHeight: "100%",
                 minHeight: "100%",
                 minWidth: "100%",
@@ -66,8 +65,8 @@ function App() {
             />
           </div>
         </div>
-        <div className="right w-1/2 h-full text-sm bg-black/5 text-white px-3 py-1 overflow-y-auto">
-          <div className="w-full break-words whitespace-pre-wrap ">
+        <div className="w-full md:w-1/2 h-[50vh] md:h-screen text-sm bg-black/5 text-white p-4 overflow-y-auto">
+          <div className="w-full break-words whitespace-pre-wrap">
             <Markdown
               rehypePlugins={[retypeHighlight]}
               className="prose prose-invert"
