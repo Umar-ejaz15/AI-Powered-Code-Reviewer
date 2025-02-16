@@ -49,7 +49,7 @@ function App() {
             <Editor
               className="w-full h-full"
               value={code}
-              placeholder="Write your code here..."
+              placeholder="Write your prompt here..."
               onValueChange={(code) => setCode(code)}
               highlight={(code) =>
                 Prism.highlight(code, Prism.languages.javascript, "javascript")

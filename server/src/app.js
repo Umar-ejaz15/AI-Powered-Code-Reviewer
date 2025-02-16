@@ -1,28 +1,24 @@
 import express from "express";
-import cors from "cors"; // ✅ Import CORS
-import aiRoutes from "./routes/ai.routes.js";
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
+// CORS Configuration
+app.use(cors({
+  origin: "https://deven-dusky.vercel.app",
+  methods: ["POST", "GET"],
+  allowedHeaders: ["Content-Type"],
+  optionsSuccessStatus: 200
+}));
 
-// ✅ Configure CORS
-app.use(
-  cors({
-    origin: "https://deven-dusky.vercel.app", // ✅ Allow only your frontend domain
-    methods: ["POST", "GET"], // ✅ Allow necessary HTTP methods
-    // allowedHeaders: ["Content-Type"], // ✅ Allow necessary headers
-    // credentials: true, // ✅ Allow credentials (cookies, auth headers, etc.)
-  })
-);
+// Routes
 app.use("/ai", aiRoutes);
 
-// ✅ Manually set CORS headers (for safety)
-
-
-
-// ✅ Handle preflight (OPTIONS request)
-app.options("*", (req, res) => res.sendStatus(200));
+// Error Handling
+app.use((err, req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://deven-dusky.vercel.app");
+  res.status(500).json({ error: "Server error" });
+});
 
 export default app;
