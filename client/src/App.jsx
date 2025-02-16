@@ -21,11 +21,8 @@ function App() {
     setIsLoading(true);
     try {
       const res = await axios.post(
-        "https://devin-dusky.vercel.app/ai/get-response",
-        { prompt: code },
-        {
-          timeout: 60000, // ⏳ 60 seconds timeout
-        }
+        "https://devin-dusky.vercel.app/get-response",
+        { prompt: code }
       );
 
       console.log(res.data);
