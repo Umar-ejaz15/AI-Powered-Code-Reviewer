@@ -22,7 +22,15 @@ function App() {
     try {
       const res = await axios.post(
         "https://devin-dusky.vercel.app/ai/get-response",
-        { prompt: code }
+        { prompt: code },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+
+        // "http://localhost:3000/ai/get-response",
+        // { prompt: code }
       );
 
       console.log(res.data);
