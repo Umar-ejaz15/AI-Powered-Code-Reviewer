@@ -7,7 +7,7 @@ app.use(express.json());
 // ✅ Configure CORS
 app.use(
   cors({
-    origin: "https://deven-dusky.vercel.app/", // ✅ Allow only your frontend domain
+    origin: "https://deven-dusky.vercel.app", // ✅ Allow only your frontend domain
     methods: ["POST", "GET"], // ✅ Allow necessary HTTP methods
     // allowedHeaders: ["Content-Type"], // ✅ Allow necessary headers
     // credentials: true, // ✅ Allow credentials (cookies, auth headers, etc.)
