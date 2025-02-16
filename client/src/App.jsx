@@ -20,38 +20,20 @@ function App() {
   const reviewCode = async function () {
     setIsLoading(true);
     try {
-      await axios.options(
-        "https://ai-powered-code-reviewer-rtpv.vercel.app/ai/get-response"
-      );
-
       const res = await axios.post(
         "https://ai-powered-code-reviewer-rtpv.vercel.app/ai/get-response",
-        { prompt: code },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*", // Try allowing CORS from frontend
-          },
-        }
+        
+        
+        { prompt: code }
       );
       console.log(res.data);
       setReview(res.data);
     } catch (error) {
-      console.error("API Error:", error);
-      if (error.response) {
-        console.error("Response Data:", error.response.data);
-        console.error("Response Status:", error.response.status);
-        console.error("Response Headers:", error.response.headers);
-      } else if (error.request) {
-        console.error("No response received:", error.request);
-      } else {
-        console.error("Request Setup Error:", error.message);
-      }
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
   };
-
   return (
     <>
       <main className="w-full min-h-screen flex flex-col md:flex-row gap-4 bg-zinc-900 p-4">
