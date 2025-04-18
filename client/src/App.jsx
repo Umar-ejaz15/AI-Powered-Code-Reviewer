@@ -11,7 +11,8 @@ import axios from "axios";
 import Markdown from "react-markdown";
 import retypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github.css";
-import { Analytics } from "@vercel/analytics/react";
+import { useVercelAnalytics } from '@vercel/analytics/react';
+
 
 import { Helmet } from "react-helmet";
 
@@ -75,7 +76,7 @@ function App() {
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://devin-dusky.vercel.app" />
       </Helmet>
-      <Analytics />
+      <useVercelAnalytics />
       <main className="w-full min-h-screen flex flex-col bg-[#1a1a1a] text-white">
         <div className="flex-1 overflow-y-auto p-6">
           <div className="max-w-4xl mx-auto">
