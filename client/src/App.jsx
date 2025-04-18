@@ -10,18 +10,18 @@ import "highlight.js/styles/github.css";
 import { Analytics } from "@vercel/analytics/react";
 import { Helmet } from "react-helmet";
 
-// import "prismjs/components/prism-jsx";
-
 function App() {
   const [code, setCode] = useState(``);
   const [review, setReview] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(true);
   useEffect(() => {
     Prism.highlightAll();
   }, []);
 
   const reviewCode = async function () {
     setIsLoading(true);
+    setShowWelcome(false);
     try {
       const res = await axios.post(
         "https://devin-dusky.vercel.app/ai/get-response",
@@ -31,11 +31,7 @@ function App() {
             "Content-Type": "application/json",
           },
         }
-
-        // "http://localhost:3000/ai/get-response",
-        // { prompt: code }
       );
-
       console.log(res.data);
       setReview(res.data);
     } catch (error) {
@@ -44,57 +40,80 @@ function App() {
       setIsLoading(false);
     }
   };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      reviewCode();
+    }
+  };
+
   return (
     <>
       <Helmet>
-        <title>AI Code  Assistant | Smart Code Analysis Tool</title>
-        <meta name="description" content="Powerful AI-powered code review assistant that helps developers analyze, optimize, and improve their code quality. Get instant feedback and suggestions for your code." />
-        <meta name="keywords" content="AI code review, code analysis tool, code optimization, programming assistant, code quality checker, automated code review, developer tools, code improvement, code suggestions, AI programming" />
-        <meta property="og:title" content="AI Code Review Assistant | Smart Code Analysis Tool" />
-        <meta property="og:description" content="Powerful AI-powered code review assistant that helps developers analyze, optimize, and improve their code quality. Get instant feedback and suggestions for your code." />
+        <title>AI Chat Assistant | Smart Conversational AI</title>
+        <meta name="description" content="Engage with our intelligent AI chatbot for natural conversations and helpful responses. Experience seamless communication powered by advanced AI." />
+        <meta name="keywords" content="AI chatbot, conversational AI, virtual assistant, chat interface, AI communication, smart chat, AI messaging, interactive AI, chatbot assistant" />
+        <meta property="og:title" content="AI Chat Assistant | Smart Conversational AI" />
+        <meta property="og:description" content="Engage with our intelligent AI chatbot for natural conversations and helpful responses. Experience seamless communication powered by advanced AI." />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://devin-dusky.vercel.app" />
       </Helmet>
       <Analytics />
-      <main className="w-full min-h-screen flex flex-col md:flex-row gap-4 bg-zinc-900 p-4">
-        <div className="w-full md:w-1/2 h-[50vh] md:h-screen bg-zinc-900 p-2">
-          <div className="flex relative flex-col w-full h-full gap-4 justify-center items-center">
-            <Editor
-              className="w-full h-full"
-              value={code}
-              placeholder="Write your prompt here..."
-              onValueChange={(code) => setCode(code)}
-              highlight={(code) =>
-                Prism.highlight(code, Prism.languages.javascript, "javascript")
-              }
-              padding={10}
-              style={{
-                fontFamily: '"Fira code", "Fira Mono", monospace',
-                fontSize: 12,
-                backgroundColor: "black",
-                color: "white",
-                border: "1px solid #ccc",
-                borderRadius: "4px",
-                maxHeight: "100%",
-                minHeight: "100%",
-                minWidth: "100%",
-              }}
-            />
-
-            <Button
-              reviewCode={reviewCode}
-              btntxt={isLoading ? "Loading..." : "Start"}
-            />
+      <main className="w-full min-h-screen flex flex-col bg-[#1a1a1a] text-white">
+        <div className="flex-1 overflow-y-auto p-6">
+          <div className="max-w-4xl mx-auto">
+            {showWelcome ? (
+              <div className="text-center py-20">
+                <h1 className="text-6xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent mb-4">
+                  Welcome to Devin Dusky
+                </h1>
+                <p className="text-xl text-gray-400">
+                  Your Intelligent AI Assistant
+                </p>
+              </div>
+            ) : (
+              <div className="bg-[#2a2a2a] rounded-lg shadow-xl p-6">
+                <Markdown
+                  rehypePlugins={[retypeHighlight]}
+                  className="prose prose-invert max-w-none prose-pre:bg-[#1a1a1a] prose-pre:rounded-lg"
+                >
+                  {review}
+                </Markdown>
+              </div>
+            )}
           </div>
         </div>
-        <div className="w-full md:w-1/2 h-[50vh] md:h-screen text-sm bg-black/5 text-white p-4 overflow-y-auto">
-          <div className="w-full break-words whitespace-pre-wrap">
-            <Markdown
-              rehypePlugins={[retypeHighlight]}
-              className="prose prose-invert"
-            >
-              {review}
-            </Markdown>
+        <div className="border-t border-zinc-800 bg-[#1a1a1a] p-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex gap-4">
+              <div className="flex-1">
+                <Editor
+                  value={code}
+                  placeholder="Type your message here..."
+                  onValueChange={(code) => setCode(code)}
+                  highlight={(code) =>
+                    Prism.highlight(code, Prism.languages.javascript, "javascript")
+                  }
+                  onKeyPress={handleKeyPress}
+                  padding={16}
+                  style={{
+                    fontFamily: '"Fira code", "Fira Mono", monospace',
+                    fontSize: 14,
+                    backgroundColor: "#2a2a2a",
+                    color: "white",
+                    borderRadius: "8px",
+                    minHeight: "120px",
+                  }}
+                />
+              </div>
+              <div className="flex items-end">
+                <Button
+                  reviewCode={reviewCode}
+                  btntxt={isLoading ? "Sending..." : "Send Message"}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </main>
