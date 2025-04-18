@@ -23,8 +23,10 @@ function App() {
   }, []);
 
   const reviewCode = async function () {
+    if (!code.trim()) return;
     setIsLoading(true);
     setShowWelcome(false);
+    setReview("Thinking...");
     try {
       const res = await axios.post(
         "https://devin-dusky.vercel.app/ai/get-response",
@@ -37,8 +39,10 @@ function App() {
       );
       console.log(res.data);
       setReview(res.data);
+      setCode('');
     } catch (error) {
       console.error(error);
+      setReview("Sorry, something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
     }
