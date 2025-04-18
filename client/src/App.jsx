@@ -1,6 +1,5 @@
 import Button from "./components/Button";
 import { useEffect, useState } from "react";
-import Prism from "prismjs";
 import "prismjs/themes/prism-tomorrow.css";
 import Editor from "react-simple-code-editor";
 import axios from "axios";
@@ -16,7 +15,10 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [showWelcome, setShowWelcome] = useState(true);
   useEffect(() => {
-    Prism.highlightAll();
+    if (typeof window !== 'undefined') {
+      const Prism = require('prismjs');
+      Prism.highlightAll();
+    }
   }, []);
 
   const reviewCode = async function () {
@@ -46,6 +48,14 @@ function App() {
       e.preventDefault();
       reviewCode();
     }
+  };
+
+  const highlight = (code) => {
+    if (typeof window !== 'undefined') {
+      const Prism = require('prismjs');
+      return Prism.highlight(code, Prism.languages.javascript, "javascript");
+    }
+    return code;
   };
 
   return (
@@ -92,9 +102,7 @@ function App() {
                   value={code}
                   placeholder="Type your message here..."
                   onValueChange={(code) => setCode(code)}
-                  highlight={(code) =>
-                    Prism.highlight(code, Prism.languages.javascript, "javascript")
-                  }
+                  highlight={highlight}
                   onKeyPress={handleKeyPress}
                   padding={16}
                   style={{
