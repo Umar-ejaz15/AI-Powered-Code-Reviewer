@@ -12,6 +12,7 @@ import Markdown from "react-markdown";
 import retypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github.css";
 import { Analytics } from "@vercel/analytics/react";
+
 import { Helmet } from "react-helmet";
 
 function App() {

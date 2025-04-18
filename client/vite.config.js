@@ -6,6 +6,6 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(),tailwindcss(),],
   optimizeDeps: {
-    include: ['prismjs', 'rehype-highlight']  // Include both here
+    include: ['prismjs', 'rehype-highlight','@vercel/analytics']  // Include both here
   }
 })
