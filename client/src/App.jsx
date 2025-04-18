@@ -1,6 +1,7 @@
 import Button from "./components/Button";
 import { useEffect, useState } from "react";
-import "prismjs/themes/prism-tomorrow.css";
+import 'prismjs/themes/prism-tomorrow.css';
+
 import Editor from "react-simple-code-editor";
 import axios from "axios";
 import Markdown from "react-markdown";
