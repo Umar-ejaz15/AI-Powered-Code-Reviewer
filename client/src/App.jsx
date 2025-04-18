@@ -3,6 +3,10 @@ import { useEffect, useState } from "react";
 import 'prismjs/themes/prism-tomorrow.css';
 
 import Editor from "react-simple-code-editor";
+// For prismjs theme
+
+// For rehype-highlight
+
 import axios from "axios";
 import Markdown from "react-markdown";
 import retypeHighlight from "rehype-highlight";
